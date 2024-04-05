@@ -1,25 +1,25 @@
-class Solution
+char* reverse(char *S, int len)
 {
-    void solve(stack<int>&s, int count, int n){
-        if(count==n/2){
-            s.pop();
-            return;
-        }
-        
-        int num = s.top();
-        s.pop();
-        
-        solve(s, count+1, n);
-        
-        s.push(num);
+    //code here
+    stack<char>stack;
+    string ans="";
+    
+    for(int i=0; i<len; i++){
+        char ch = S[i];
+        stack.push(ch);
     }
     
-    public:
-    //Function to delete middle element of a stack.
-    void deleteMid(stack<int>&s, int sizeOfStack)
-    {
-        // code here.. 
-        // int count = 0;
-        solve(s, 0, sizeOfStack);
+    while(!stack.empty()){
+        char ch = stack.top();
+        ans.push_back(ch);
+        
+        stack.pop();
     }
-};
+    
+    // Copying the reversed string back to the original array
+    for(int i=0; i<len; i++){
+        S[i]=ans[i];
+    }
+    
+    return S;
+}
