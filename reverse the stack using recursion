@@ -1,0 +1,27 @@
+class Solution{
+    void insertAtButton(stack<int>& s, int x){
+        if(s.empty()){
+            s.push(x);
+            return;
+        }
+        
+        int num = s.top();
+        s.pop();
+        
+        insertAtButton(s, x);
+        
+        s.push(num);
+    }    
+    
+public:
+    void Reverse(stack<int> &St){
+        if(St.empty()) return;
+        
+        int num = St.top();
+        St.pop();
+        
+        Reverse(St);
+        
+        insertAtButton(St, num);
+    }
+};
