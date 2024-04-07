@@ -101,35 +101,74 @@ class Solution {
         
         
         
-        stack<char> st;
+        // stack<char> st;
+
+        // for (int i = 0; i < s.length(); i++) {
+        //     char ch = s[i];
+
+        //     if (ch == ')') {
+        //         // Check for redundant parentheses
+        //         bool hasOperator = false;
+        //         char top = st.top();
+        //         st.pop(); // Pop the '('
+
+        //         while (top != '(') {
+        //             if (top == '+' || top == '-' || top == '*' || top == '/') {
+        //                 hasOperator = true;
+        //             }
+        //             top = st.top();
+        //             st.pop();
+        //         }
+
+        //         // If no operator found between '(' and ')', it's redundant
+        //         if (!hasOperator) {
+        //             return true;
+        //         }
+        //     } else {
+        //         st.push(ch);
+        //     }
+        // }
+
+        // return false;
+        
+        
+        
+         stack<char> st;
 
         for (int i = 0; i < s.length(); i++) {
             char ch = s[i];
 
             if (ch == ')') {
-                // Check for redundant parentheses
+                // Process characters between ')' and '('
                 bool hasOperator = false;
-                char top = st.top();
-                st.pop(); // Pop the '('
 
-                while (top != '(') {
+                // Pop characters until '(' is found or stack is empty
+                while (!st.empty() && st.top() != '(') {
+                    char top = st.top();
+                    st.pop();
+
+                    // Check if the popped character is an operator
                     if (top == '+' || top == '-' || top == '*' || top == '/') {
                         hasOperator = true;
                     }
-                    top = st.top();
-                    st.pop();
                 }
 
-                // If no operator found between '(' and ')', it's redundant
-                if (!hasOperator) {
-                    return true;
+                // If '(' is not found (invalid expression) or no operator found between '(' and ')'
+                if (st.empty() || !hasOperator) {
+                    return true;  // Redundant parentheses detected
+                }
+
+                // Pop the '(' from the stack
+                if (!st.empty()) {
+                    st.pop();  // Remove the '(' from the stack
                 }
             } else {
+                // Push non ')' characters onto the stack
                 st.push(ch);
             }
         }
 
-        return false;
+        return false;  // No redundant parentheses detected
         
     }
 };
