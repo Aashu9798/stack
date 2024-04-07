@@ -39,33 +39,97 @@ class Solution {
   public:
     int checkRedundancy(string s) {
         // code here
-        stack<char>st;
+        // stack<char>st;
         
-        for(int i=0; i<s.length(); i++){
-            char ch = s[i];
+        // for(int i=0; i<s.length(); i++){
+        //     char ch = s[i];
             
-            if(ch=='(' || ch=='+' || ch=='-' || ch=='*' || ch=='/'){
-                st.push(ch);
-            }
-            else{
-                if(ch=')'){
-                    bool isRedundant=true;
+        //     if(ch=='(' || ch=='+' || ch=='-' || ch=='*' || ch=='/'){
+        //         st.push(ch);
+        //     }
+        //     else{
+        //         if(ch=')'){
+        //             bool isRedundant=true;
                     
-                    while(st.top() != '('){       
-                        char top = st.top();
+        //             while(!st.empty() && st.top() != '('){       
+        //                 char top = st.top();
                         
-                        if(top=='+' || top=='-' || top=='*' || top=='/'){
-                            isRedundant=false;
-                        }
-                        st.pop();
+        //                 if(top=='+' || top=='-' || top=='*' || top=='/'){
+        //                     isRedundant=false;
+        //                 }
+        //                 st.pop();
+        //             }
+        //             if(isRedundant==true){
+        //                 return true;
+        //             }
+        //             st.pop();
+        //         }
+        //     }
+        // }
+        // return false;
+        
+        
+        
+        
+        // stack<char> st;
+        
+        // for(int i=0; i<s.length(); i++){
+        //     char ch = s[i];
+            
+        //     if(ch==')'){
+        //         // Pop and check for redundancy
+        //         bool hasOperator = false;
+                
+        //         while(!st.empty() && st.top()=='('){
+        //             char top = st.top();
+        //             if(top=='+' || top=='-' || top=='*' || top=='/'){
+        //                 hasOperator = true;
+        //             }
+        //             st.pop();
+        //         }
+        //         st.pop();  // Pop the '('
+                
+        //         if(!hasOperator){
+        //             return true;
+        //         }
+        //     }
+        //     else{
+        //         st.push(ch);
+        //     }
+        // }
+        // return false;
+        
+        
+        
+        stack<char> st;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s[i];
+
+            if (ch == ')') {
+                // Check for redundant parentheses
+                bool hasOperator = false;
+                char top = st.top();
+                st.pop(); // Pop the '('
+
+                while (top != '(') {
+                    if (top == '+' || top == '-' || top == '*' || top == '/') {
+                        hasOperator = true;
                     }
-                    if(isRedundant==true){
-                        return true;
-                    }
+                    top = st.top();
                     st.pop();
                 }
+
+                // If no operator found between '(' and ')', it's redundant
+                if (!hasOperator) {
+                    return true;
+                }
+            } else {
+                st.push(ch);
             }
         }
+
         return false;
+        
     }
 };
